@@ -4,6 +4,9 @@ RUN \
   autoconf automake libtool curl g++ git make unzip \
   && rm -rf /var/lib/apt/lists/*
 COPY . /tmp/capnproto
-RUN cd /tmp/capnproto && \
-      ./super-test.sh
+RUN cd /tmp/capnproto/c++ && \
+      autoreconf -i && \
+      ./configure && \
+      make -j6 check && \
+      make install
 WORKDIR /tmp/capnproto
